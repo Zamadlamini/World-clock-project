@@ -7,7 +7,20 @@
     <title>world clock - Zama Dlamini </title>
 </head>
 <body>
+    <div class="container">
     <h1>World Clock</h1>
+    <select>
+        <option value="">Select a city....</option>
+        <option value="los_angeles 🇱🇷" data-timezone = "America/Los_Angeles">Los Angeles 🇱🇷</option>
+        <option value="sydney 🇦🇺" data-timezone="Australia/Sydney">Sydney 🇦🇺</option>
+        <option value="tokyo 🇯🇵" data-timezone="Asia/Tokyo">Tokyo 🇯🇵</option>
+        <option value="paris 🇫🇷" data-timezone="Europe/Paris">Paris 🇫🇷 </option>
+    </select>
+    </div>
+    <div class="city-details">
+        <h2 id="city=name"></h2>
+        <p id="city-time"></p>
+    </div>
     <footer>
         This project was coded❤️by Zama Dlamini and is <a href="https://github.com/Zamadlamini/World-clock-project">open source on Github</a>
     </footer>
