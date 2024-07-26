@@ -37,7 +37,7 @@ border-bottom: 1px dashed grey;
 font-family: sans-serif;
 text-align: left;
 }
-.city :last-child {
+.city:last-child {
     border: none;
 }
 .date {
