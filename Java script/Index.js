@@ -13,7 +13,7 @@
                 const now = moment().tz(selectedTimezone);
                 cityDiv.innerHTML = `
     <div>
-    <h2>${this.options[this.selectedindex].text}</h2>
+    <h2>${this.options[this.selectedIndex].text}</h2>
     <div class ="date">${now.format('MMMM Do YYYY')}</div>
     </div>
     <div class="time">${now.format('h:mm:ss')}<small>${now.format('A')}</small></div>

@@ -3,11 +3,9 @@ h1 {
     font-size: 46px;
     font-family: sans-serif;
 }
-
 h2 {
     margin: 5px;
 }
-
 select {
     display: block;
     width: 100%;
@@ -16,13 +14,11 @@ select {
     font-size: 18px;
     margin-bottom: 20px;
 }
-
 body {
     font-family: sans-serif;
     text-align: center;
     background-color: #f9f7fe;
 }
-
 .container {
     max-width: 600px;
     margin: 60px auto;
@@ -41,26 +37,21 @@ body {
     font-family: sans-serif;
     text-align: left;
 }
-
 .city:last-child {
     border: none;
 }
-
 .date {
     opacity: 0.8;
 }
-
 .time {
     font-size: 38px;
     font-weight: bold;
 }
-
 .time small {
     vertical-align: middle;
     font-size: 16px;
     line-height: 36px;
 }
-
 footer {
     text-align: center;
     color: black;
