@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Index.css">
+    <title>world clock - Zama Dlamini </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+</head>
+<style>h1 {
+    text-align: center;
+    font-size: 46px;
+    font-family: sans-serif;
+}
+h2 {
+    margin: 5px;
+}
+select {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #f9f7fe;
+}
+.container {
+    max-width: 600px;
+    margin: 60px auto;
+    background-color: white;
+    box-shadow: 10px 10px 10px #c0bcbc66 ;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.city {
+display: flex;
+margin: 0 auto;
+justify-content: space-between;
+padding: 30px;
+border-bottom: 1px dashed grey;
+font-family: sans-serif;
+text-align: left;
+}
+.city:last-child {
+    border: none;
+}
+.date {
+    opacity: 0.8;
+}
+.time {
+    font-size: 38px;
+    font-weight: bold;
+}
+.time small {
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 36px;
+}
+footer {
+    text-align: center;
+    color: black;
+    margin: 20px;
+}</style>
+<body>
+    <div class="container">
+    <h1>World Clock</h1>
+    <select id="city-select">
+        <option value="">Select a city....</option>
+        <option value="America/Los_Angeles">Los Angeles 🇱🇷</option>
+        <option value="Australia/Sydney">Sydney 🇦🇺</option>
+        <option value="Asia/Tokyo">Tokyo 🇯🇵</option>
+        <option value="Europe/Paris">Paris 🇫🇷</option>
+    </select>
+    <div id="cities">
+        <div class="city" data-timezone="America/Los_Angeles">
+            <div>
+                <h2>Los Angeles 🇱🇷</h2>
+                <div class="date"></div>
+        </div> 
+        <div class="time"></div>
+        </div>
+        <div class="city"data-timezone="Australia/Sydney">
+            <div>
+                <h2>Sydney 🇦🇺</h2>
+                <div class="date"></div>
+            </div>
+            <div class="time"></div>
+        </div>
+        <div class="city"data-timezone="Asia/Tokyo">
+            <div>
+                <h2>Tokyo 🇯🇵</h2>
+                <div class="date"></div>
+            </div>
+            <div class="time"></div>
+        </div>
+        <div class="city"data-timezone="Europe/Paris">
+            <div>
+                <h2>Paris 🇫🇷</h2>
+                <div class="date"></div>
+            </div>
+            <div class="time"></div>
+        </div>
+    </div>
+</div>
+<script>function updateTime() {
+        document.querySelectorAll('.city').forEach(city => {
+            const timezone = city.getAttribute('data-timezone');
+            const now = moment().tz(timezone);
+            city.querySelector('.date').innerHTML = now.format('MMMM Do YYYY');
+            city.querySelector('.time').innerHTML = now.format('h:mm:ss') + '<small>' + now.format('A') + '</small>';
+        });
+    }
+    document.getElementById('city-select').addEventListener('change', function () {
+        const selectedTimezone = this.value; // Define selectedTimezone
+        const cityDiv = document.createElement('div');
+        cityDiv.className = 'city';
+        cityDiv.setAttribute('data-timezone', selectedTimezone);
+        const now = moment().tz(selectedTimezone);
+        cityDiv.innerHTML = `
+    <div>
+    <h2>${this.options[this.selectedIndex].text}</h2>
+    <div class ="date">${now.format('MMMM Do YYYY')}</div>
+    </div>
+    <div class="time">${now.format('h:mm:ss')}<small>${now.format('A')}</small></div>
+    `;
+        document.getElementById('cities').appendChild(cityDiv);
+    });
+    setInterval(updateTime, 1000);
+    updateTime();</script>
+    <footer>
+        This project was coded❤️by <strong>Zama Dlamini</strong> and is <a href="https://github.com/Zamadlamini/World-clock-project">open source on Github</a>
+    </footer>
+</body>
+</html>
+
+
