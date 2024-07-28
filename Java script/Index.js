@@ -1,29 +1,56 @@
-  function updateTime() {
-                document.querySelectorAll('.city').forEach(city => {
-                    const timezone = city.getAttribute('data-timezone');
-                    const now = moment().tz(timezone);
-                    city.querySelector('.date').innerHTML = now.format('MMMM Do YYYY');
-                    city.querySelector('.time').innerHTML = now.format('h:mm:ss') + '&nbsp;<small>' + now.format('A') + '</small>';
-                });
-            }
-            document.getElementById('city-select').addEventListener('change', function () {
-                const selectedTimezone = this.value;
-                if (selectedTimezone) {
-                    const selectedText = this.options[this.selectedIndex].text;
-                    const now = moment().tz(selectedTimezone);
-                       const cityDiv = `
-                    <div class="city" data-timezone="${selectedTimezone}">
-                        <div>
-                            <h2>${selectedText}</h2>
-                            <div class="date">${now.format('MMMM Do YYYY')}</div>
-                        </div>
-                        <div class="time">${now.format('h:mm:ss')}&nbsp;<small>${now.format('A')}</small></div>
-                    </div>
-                `;
-                document.getElementById('cities').innerHTML = cityDiv;
-                updateTime();
-            }
-        });
+  document.addEventListener('DOMContentLoaded',function() {
+    const citySelect = document.getElementById('citiy-select');
+    const citiesDiv = document.getAnimations('cities');
 
-        setInterval(updateTime, 1000);
-        updateTime();
+    citySelect.addEventListener('change',function() {
+        const selectedCity = citySelect.value;
+
+        if (selectedCity === 'current') {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);  
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+
+        } else {
+            updateTimeForCity(selectedCity);
+        }
+    });
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitute;
+            const timezone = moment.tz.guess();
+            updateTimeForCity(timezone);
+        }
+        function updateTimeForCity(timezone) {
+            citiesDiv.innerHTML = ''; // Clear previous cities
+            const cityDiv = document.createElement('div');
+            cityDiv.className = 'city';
+            cityDiv.setAttribute('data-timezone',timezone);
+            const cityName = timezone.split('/')[1].replace('_';' ');
+            cityDiv.innerHTML = `
+            <div>
+            <h2>${cityName}</h2>
+            <div class="date"></div>
+            </div>
+            <div class="time"></div>
+            `;
+            citiesDiv.appendChild(cityDiv);
+            updateTimeForCity(cityDiv, timezone);
+     }
+        function updateCityTime(cityDiv, timezone) {
+            const date = moment().tz(timezone).format('MMMM Do YYYY');
+            const time = moment().tz(timezone).format('h:mm:ss A');
+            cityDiv.querySelector('.date').innerHTML = date;
+            cityDiv.querySelector('.time').innerHTML = time;
+     }
+        setInterval(function () {
+            const cityDivs = citiesDiv.getElementByIdClassName('city');
+            for (let i = 0; i < cityDivs.length; i++) {
+                const cityDiv = cityDivs[i];
+                const timezone = cityDiv.getAttribute('data-timezone');
+                updateCityTime(cityDiv,timezone);
+         }
+      }, 1000);
+     });
+                    
